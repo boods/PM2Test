@@ -1,22 +1,25 @@
 {
-  "name": "proximacapital-{REPO_NAME}",
+  "name": "boods-PM2Test",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:proximacapital/{REPO_NAME}.git"
+    "url": "git+ssh://git@github.com:boods/PM2Test.git"
   },
-  "homepage": "https://github.com/proximacapital/{REPO_NAME}/blob/master/README.md",
+  "homepage": "https://github.com/boods/PM2Test",
   "engines": {
     "node": "14.13.1",
     "npm": ">= 6.12.0"
   },
   "scripts": {},
   "dependencies": {
-    "lodash": "4.17.20",
-    "tsconfig-paths": "3.9.0"
+    "@pm2/io": "^5.0.0",
+    "lodash": "^4.17.21",
+    "tsconfig-paths": "3.9.0",
+    "yargs": "^17.0.1"
   },
   "devDependencies": {
     "@types/lodash": "4.14.167",
+    "@types/yargs": "^16.0.1",
     "@typescript-eslint/eslint-plugin": "4.14.0",
     "@typescript-eslint/eslint-plugin-tslint": "4.14.0",
     "@typescript-eslint/parser": "4.1.0",
