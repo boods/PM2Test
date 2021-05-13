@@ -21,3 +21,35 @@ The Strategy service has some features to test out some PM2 features:
 pm2 trigger Binance_LINK_USDT flatten
 ```
 
+
+## Installation 
+
+To install: 
+```
+npm install pm2 -g
+npm install
+gulp build
+```
+
+## Usage
+
+To launch all services: 
+```
+pm2 start ecosystem.config.js
+```
+
+To stop all services: 
+```
+pm2 stop ecosystem.config.js
+```
+
+To monitor via the console: 
+```
+pm2 monit
+```
+
+To execute the "flatten" custom action: 
+(You can use any strategy name, not just Binance_LINK_USDT. The name needs to match the "name" in the ecosystem file)
+```
+pm2 trigger Binance_LINK_USDT flatten
+```
