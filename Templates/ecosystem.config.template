@@ -1,0 +1,53 @@
+const { EventLoopMetricOption } = require("@pm2/io/build/main/metrics/eventLoopMetrics")
+const { LookupVal } = require("nunjucks/src/nodes")
+
+module.exports = {
+  apps : [
+    {% for Exchange in ExchangeList %}
+    {
+      name: "{{ Exchange.Name }}",
+      min_uptime: 60000,
+      max_restarts: 3,
+      restart_delay: 3000,
+      script: 'Dist/Src/Venue.js',
+      watch: true,
+      args: "--Venue={{ Exchange.Name }} --Port={{ Exchange.Port }}"
+    },
+    {% endfor %}
+    {% for IEX in IEXList %}
+    {
+      name: "IEX_{{ IEX.Symbol }}",
+      min_uptime: 60000,
+      max_restarts: 3,
+      restart_delay: 3000,
+      script: 'Dist/Src/IEX.js',
+      watch: true,
+      args: "--Symbol={{ IEX.Symbol }} --Port={{ IEX.Port }}"
+    },
+    {% endfor %}
+    {% for Strategy in StrategyList %}
+    {
+      name: "{{ Strategy.Type }}_{{ Strategy.Exchange }}_{{ Strategy.Symbol }}",
+      min_uptime: 60000,
+      max_restarts: 3,
+      restart_delay: 3000,
+      script: 'Dist/Src/Strategy.js',
+      watch: true,
+      args: "--Strategy={{ Strategy.Type }}_{{ Strategy.Exchange }}_{{ Strategy.Symbol }} --Port={{ Strategy.Port }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  deploy : {
+    production :
+    {
+      user : 'phil',
+      host : 'DESKTOP-7RDQCFQ',
+      ref  : 'origin/master',
+      repo : 'https://github.com/boods/PM2Test',
+      path : '/home/phil/projects/sandbox/PM2Test/deploy',
+      'pre-deploy-local': '',
+      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
+      'pre-setup': ''
+    }
+  }
+};

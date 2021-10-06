@@ -43,7 +43,10 @@ gulp.task("copy", gulp.parallel(
     () => Root("/tsconfig-paths-bootstrap.js").pipe(DistDest()),
 
     () => Src("/Config/**/*").pipe(DistDest("/Src/Config")),
-    () => Src("/Config/**/.*").pipe(DistDest("/Src/Config"))
+    () => Src("/Config/**/.*").pipe(DistDest("/Src/Config")),
+
+    () => Root("/Templates/**/*").pipe(DistDest("/Templates")),
+    () => Root("/Templates/**/.*").pipe(DistDest("/Templates"))
 ));
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -130,6 +133,14 @@ gulp.task("test", done =>
 // ---------------------------------------------------------------------------------------------------------------------
 gulp.task("coverage", done => execTask(`${_NYC_} ${getAvaCommand(TestFolder)}`, done));
 gulp.task("code-coverage", gulp.series(["deprecated", "coverage"]));
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+gulp.task("generate", (done) =>
+{
+    execTask(`node ${DistFolder}/Src/GenerateEcosystem.js`, done);
+});
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 gulp.task("start", (done) =>
